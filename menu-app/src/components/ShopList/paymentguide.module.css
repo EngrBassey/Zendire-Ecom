@@ -1,0 +1,36 @@
+.paymentContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+.payment {
+    width: 40%;
+    background-color: #f8f8f8;
+    padding: 70px 50px;
+}
+.payment h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #3f3f3f;
+}
+.payment p {
+    font-size: 14px;
+    color: #8d8d8d;
+    line-height: 2;
+    margin-bottom: 40px;
+}
+.payment ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 14px;
+    color: #3f3f3f;
+}
+.payment ul li::before {
+    font-family: FontAwesome;
+    content: "\f138";
+    background-color: #f8f8f8;
+    margin: 3px;;
+    font-size: 14px;
+}

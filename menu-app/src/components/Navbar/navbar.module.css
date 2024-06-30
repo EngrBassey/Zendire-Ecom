@@ -1,0 +1,22 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 12px 40px;
+}
+.navbarbox1 img {
+    width: 100px;
+}
+.navbarbox2 a {
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    color: #000;
+}
+.navbarbox2 {
+    display: flex;
+}
+.navbarbox2 div {
+    margin-left: 2rem;
+}

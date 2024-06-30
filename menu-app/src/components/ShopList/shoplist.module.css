@@ -1,0 +1,51 @@
+.shopImag {
+    width: 200px;
+}
+.shopBox {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.shopBox ul 
+.cartbtn {
+    display: flex;
+    align-items: center;
+}
+hr {
+    width: 90%;
+    height: 0.1px;
+}
+.cartbtn button {
+    border-radius: 17px;
+    border: none;
+    padding: 9.7px 12px;
+    cursor: pointer;
+}
+.cartbtn button:hover {
+    background-color: #F5614D;
+    color: #fff;
+}
+.shopBox p, .shopBox h4, .shopBox h5 {
+    margin: 0;
+    padding: 0;
+}
+.shopBox h5 {
+    margin-top: 10px;
+}
+.shopBox h5, .shopBox h4{
+    font-size: 14px;
+    color: #3f3f3f;
+    font-weight: 300;
+    padding-top: 3px;
+}
+.shopBox h4{
+    text-transform: uppercase;
+    color: #8d8d8d;
+}
+.shopBox p {
+    font-weight: 700;
+    color: #3f3f3f;
+}
+.items {
+    cursor: pointer;
+}

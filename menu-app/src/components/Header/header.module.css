@@ -1,0 +1,27 @@
+.header {
+    height: 80vh;
+    background-image: url(../../assert/heade-bg.jpg);
+    background-color: rgba(52, 52, 52, 0.5); 
+    background-blend-mode: darken;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.headerContainer {
+    text-align: center;
+    color: #fff;
+    font-size: 2rem;
+}
+.headerContainer h1 {
+    border: 2px solid #fff;
+    border-radius: 60px;
+    padding: 15px;
+}
+.btn1, .btn2 {
+    border: none;
+    padding: 20px;
+    border-radius: 30px;
+}
+.btn2 {
+    background-color: #F5614D;
+}
