@@ -1,0 +1,36 @@
+.show {
+    margin-top: 20px;
+}
+.accessories {
+    display: flex;
+    justify-content: center;
+}
+
+.box1, .box2 {
+    width: 40%;
+    height: 50vh;
+    background-repeat: no-repeat;
+    margin: 20px;
+    background-color: rgba(0, 0, 0, 0.5); 
+    background-blend-mode: darken;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+.btn {
+    border-radius: 70%;
+    padding: 7px 12px;
+    border: none;
+    margin-left: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: #F5614D;
+    color: #fff;
+}
+.box1 {
+    background-image: url(../../../assert/md-salman.jpg);
+}
+.box2 {
+    background-image: url(../../../assert/trinh-minh.jpg);
+}

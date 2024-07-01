@@ -1,0 +1,38 @@
+.check h1, .check h2 {
+    text-align: center;
+    color: #3f3f3f;
+    margin: 0;
+}
+.check {
+    margin-top: 50px;
+}
+.check h2 {
+    font-weight: 300;
+}
+.categories {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+.categories ul {
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    width: 60%;
+}
+.categories ul li:not(:first-child) {
+    border: 1px solid #e6e6e6;
+    border-radius: 20px;
+}
+.categories ul li {
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #8d8d8d;
+    padding: 6px 15px;
+}
+.active {
+    font-weight: 500;
+    color: #fff !important;
+    background-color: #F5614D;
+}
