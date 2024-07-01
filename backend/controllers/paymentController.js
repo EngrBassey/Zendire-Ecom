@@ -8,39 +8,6 @@ const { v4: uuidv4 } = require("uuid");
  */
 class PaymentController {
   /**
-   * Creates dummy card for checkout using Stripe
-   * @param {*} _request
-   * @param {*} response
-   * @returns
-   */
-  createPayment = asyncHandler(async (_request, response) => {
-    try {
-      const paymentMethod = await stripe.paymentMethods.create({
-        type: "card",
-        card: {
-          number: "4242424242424242",
-          exp_month: 12,
-          exp_year: 2025,
-          cvc: "123",
-        },
-      });
-
-      return response.status(201).send({
-        success: true,
-        message: "Payment method created successfully",
-        result: paymentMethod,
-      });
-    } catch (err) {
-      console.error("Error creating payment method:", err);
-      return response.status(500).send({
-        success: false,
-        message: "Internal Server Error",
-        result: "",
-      });
-    }
-  });
-
-  /**
    * Confirms payment and stores order to db
    * @param {*} _request
    * @param {*} response
@@ -65,11 +32,15 @@ class PaymentController {
           result: "",
         });
       }
-      const paymentIntent = await stripe.charges.create({
+      const paymentIntent = await stripe.paymentIntents.create({
         amount,
         currency,
         payment_method: paymentMethodId,
         confirm: true,
+        automatic_payment_methods: {
+          enabled: true,
+          allow_redirects: "never",
+        },
       });
 
       let cart = await redisClient.getValue(id);
@@ -135,7 +106,6 @@ class PaymentController {
         message: "Payment processed successfully",
         result: createdOrder,
       });
-
     } catch (error) {
       console.error("Error processing payment:", error);
       return response.status(500).send({

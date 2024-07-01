@@ -48,6 +48,26 @@ components:
         sku: SAMPLE-SKU-001
         numberOfProductsAvailable: 100
         images: []
+    Cart:
+      type: object
+      properties:
+        user:
+          type: string
+        cartItems:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                type: string
+              quantity:
+                type: integer
+              name:
+                type: string
+              price:
+                type: number
+              image:
+                type: string
   securitySchemes:
     bearerAuth:
       type: http
@@ -196,3 +216,137 @@ paths:
           description: The SKU is missing
         404:
           description: The product was not found
+  /api/cart/add:
+    post:
+      summary: Add a product to the cart
+      tags: [Cart]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - productSKU
+                - quantity
+              properties:
+                product:
+                  type: string
+                  description: SKU of the product
+                quantity:
+                  type: integer
+                  description: Quantity of the product
+      responses:
+        '200':
+          description: Product added to cart successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: object
+        '400':
+          description: Missing product or quantity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+
+  /api/cart:
+    get:
+      summary: Retrieve the cart
+      tags: [Cart]
+      responses:
+        '200':
+          description: Cart retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: object
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+
+  /api/cart/remove/{productSKU}:
+    delete:
+      summary: Remove a product from the cart
+      tags: [Cart]
+      parameters:
+        - in: path
+          name: productSKU
+          schema:
+            type: string
+          required: true
+          description: ID of the product to remove
+      responses:
+        '200':
+          description: Product removed from cart
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  result:
+                    type: object
+        '400':
+          description: ProductSKU is missing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
