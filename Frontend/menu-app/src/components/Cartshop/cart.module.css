@@ -1,0 +1,50 @@
+.cart {
+    height: 100vh;
+    color: #3f3f3f;
+}
+.cart h1 {
+    text-align: center;
+    margin-top: 60px;
+}
+.additems {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.items {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.12);
+    margin: 20px;
+    border-radius: 5px;
+}
+.checkout {
+    margin-left: 5rem;
+}
+.checkout button, .shopping button {
+    background-color: #F5614D;
+    padding: 10px 25px;
+    border-radius: 13px;
+    border: none;
+    color: #fff;
+    font-weight: 400;
+    cursor: pointer;
+}
+.shopping {
+    text-align: center;
+    margin: 30px;
+}
+.items img {
+    width: 150px;
+}
+.props {
+    margin-left: 10px;
+}
+.props button {
+    cursor: pointer;
+}
+.props input {
+    width: 15%;
+}

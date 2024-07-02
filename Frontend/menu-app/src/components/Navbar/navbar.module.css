@@ -4,6 +4,14 @@
     align-items: center;
     margin: 12px 40px;
 }
+.position {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: white; /* Ensure the navbar has a background */
+    z-index: 1000; /* Ensure it stays on top */
+}
 .navbarbox1 img {
     width: 100px;
 }
@@ -19,4 +27,7 @@
 }
 .navbarbox2 div {
     margin-left: 2rem;
+}
+.navbarbox2 a:hover {
+    color: #F5614D;
 }
