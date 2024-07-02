@@ -73,8 +73,9 @@ const initializeProducts = async () => {
             }
         ];
 
-        await Product(products);
-        console.log('Dummy products created successfully');
+        if (await Product.insertMany(products)) {
+            console.log('Dummy products created successfully');
+        }
     } catch (err) {
         console.error('An error occurred:', err.message);
     }
