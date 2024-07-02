@@ -4,6 +4,7 @@ import Navbar from './components/Navbar/navbar';
 import Shopcontextapi from './context/Shopcontextapi';
 import Cart from './components/Cartshop/Cart';
 import Main from './components/Hompage/Main';
+import Checkoutpage from './Pages/Checkoutpage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path='/shop' />
             <Route path='/contact' />
             <Route path='/cart' element={<Cart />}/>
+            <Route path='/checkout' element={<Checkoutpage />}/>
           </Routes>
         </Router>
       </Shopcontextapi>

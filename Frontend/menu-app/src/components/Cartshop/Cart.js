@@ -36,7 +36,7 @@ const Cart = () => {
             <div className={classes.checkout}>
               <h1>Total products: {totalProducts}</h1>
               <p>Price: ${getTotalPrice().toFixed(2)}</p>
-              <button>Checkout</button>
+              <button onClick={() => navigate('/checkout')}>Checkout</button>
             </div>
           </div>
           <div className={classes.shopping}>
