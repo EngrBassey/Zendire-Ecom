@@ -3,9 +3,11 @@ import classes from './checkoutpage.module.css'
 import Footer from '../components/Footer/Footer';
 import { ProductContext } from '../context/Shopcontextapi';
 import Cartorder from './Cartorder';
+import { useNavigate } from 'react-router-dom';
 
 const Checkoutpage = () => {
     const {cartItems, data, getTotalPrice } = useContext(ProductContext);
+    const navigate = useNavigate();
 
     return (
         <div className={classes.container}>
@@ -18,14 +20,14 @@ const Checkoutpage = () => {
                                 <label>First Name<span>*</span></label>
                                 <input
                                     type='text'
-                                    required='required'
+                                    required
                                 />
                             </ul>
                             <ul className={classes.lastinput}>
                                 <label>Last Name<span>*</span></label>
                                 <input
                                     type='text'
-                                    required='required'
+                                    required
                                 />
                             </ul>
                         </div>
@@ -35,12 +37,12 @@ const Checkoutpage = () => {
                         <label>Email<span>*</span></label>
                         <input
                             type='text'
-                            required='required'
+                            required
                         />
                         <label>Phone<span>*</span></label>
                         <input
                             type='number'
-                            required='required'
+                            required
                         />
                     </form>
                 </div>
@@ -72,7 +74,7 @@ const Checkoutpage = () => {
                                 </tr>
                             </table>
                         </div>
-                        <button>PLACE ORDER</button>
+                        <button onClick={() => navigate('/stripe')}>PLACE ORDER</button>
                     </div>
                 </div>
             </div>
