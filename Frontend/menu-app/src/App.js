@@ -7,6 +7,7 @@ import Main from './components/Hompage/Main';
 import Checkoutpage from './Pages/Checkoutpage';
 import Addproduct from './Pages/Product/Addproduct';
 import Removeproduct from './Pages/Product/Removeproduct';
+import StripePayment from './Pages/Payment/Stripe';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path='/checkout' element={<Checkoutpage />}/>
             <Route path='/addproduct' element={<Addproduct />}/>
             <Route path='/removeproduct' element={<Removeproduct />}/>
+            <Route path='/stripe' element={<StripePayment />} />
           </Routes>
         </Router>
       </Shopcontextapi>
