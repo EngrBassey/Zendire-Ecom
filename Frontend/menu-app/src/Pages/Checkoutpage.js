@@ -18,14 +18,14 @@ const Checkoutpage = () => {
                                 <label>First Name<span>*</span></label>
                                 <input
                                     type='text'
-                                    required='required'
+                                    required
                                 />
                             </ul>
                             <ul className={classes.lastinput}>
                                 <label>Last Name<span>*</span></label>
                                 <input
                                     type='text'
-                                    required='required'
+                                    required
                                 />
                             </ul>
                         </div>
@@ -35,12 +35,12 @@ const Checkoutpage = () => {
                         <label>Email<span>*</span></label>
                         <input
                             type='text'
-                            required='required'
+                            required
                         />
                         <label>Phone<span>*</span></label>
                         <input
                             type='number'
-                            required='required'
+                            required
                         />
                     </form>
                 </div>

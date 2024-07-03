@@ -1,0 +1,52 @@
+.addproduct {
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+    color: #3f3f3f;
+}
+.container {
+    background-color: #efefef; 
+    background-blend-mode: darken;
+}
+.addproduct ul {
+    width: 40%;
+    margin: 30px 0px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.12);
+}
+.addproduct ul h1 {
+    text-align: center;
+}
+.formGroup span {
+    color: red;
+}
+.formGroup {
+    display: flex;
+    flex-direction: column;
+}
+.formGroup input {
+    padding: 10px;
+    border: 1px solid #c0c0c0;
+    margin-bottom: 10px;
+}
+.apibtn {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.apibtn button {
+        background-color: #F5614D;
+        border: none;
+        font-size: 13px;
+        padding: 10px 18px;
+        color: #fff;
+        font-weight: 400;
+        border-radius: 8px;
+        cursor: pointer;
+}
+ul form {
+    width: 70%;
+    margin: auto;
+}

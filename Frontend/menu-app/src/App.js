@@ -5,6 +5,8 @@ import Shopcontextapi from './context/Shopcontextapi';
 import Cart from './components/Cartshop/Cart';
 import Main from './components/Hompage/Main';
 import Checkoutpage from './Pages/Checkoutpage';
+import Addproduct from './Pages/Product/Addproduct';
+import Removeproduct from './Pages/Product/Removeproduct';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
             <Route path='/contact' />
             <Route path='/cart' element={<Cart />}/>
             <Route path='/checkout' element={<Checkoutpage />}/>
+            <Route path='/addproduct' element={<Addproduct />}/>
+            <Route path='/removeproduct' element={<Removeproduct />}/>
           </Routes>
         </Router>
       </Shopcontextapi>
