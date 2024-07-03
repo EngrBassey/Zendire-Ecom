@@ -13,6 +13,7 @@ class CartController {
    */
   addToCart = asyncHandler(async (request, response) => {
     try {
+    console.log(request.headers)
       const userOrSessionId = getUserOrSessionId(request);
       const id = `cart:${userOrSessionId}`;
       const { product, quantity } = request.body;

@@ -95,10 +95,45 @@ const storeCookie = (response, token) => {
 };
 
 /**
+ * Handles Session id for unauthenticated users;
+ * @param {} request
+ * @param {*} response
+ * @param {*} next
+ */
+const checkSessionId = (request, response, next) => {
+    if (request.path.startsWith('/api/auth')) {
+        return next();
+      }
+  if (!request.user) {
+    if (!request.cookies["session-id"]) {
+      const sessionId = uuidv4();
+      response.cookie("session-id", sessionId, {
+        httpOnly: true,
+        maxAge: 24 * 3600 * 1000, // 1day
+      });
+      request.sessionId = sessionId;
+    } else {
+      request.sessionId = request.cookies["session-id"];
+    }
+  }
+  next();
+};
+/**
  * Returns User Id or SessionId
  * @param {*} req Request object
  * @returns
  */
-const getUserOrSessionId = (req) => (req.user ? req.user._id : req.sessionId);
+const getUserOrSessionId = (req) => {
+    if (req.user) {
+      return req.user._id;
+    } else {
+      if (!req.cookies["session-id"]) {
+        const sessionId = uuidv4();
+        req.cookies["session-id"] = sessionId;
+      }
+      return req.cookies["session-id"];
+    }
+  };
+
 
 module.exports = {hashPassword, verifyPassword, cacheToken, generateToken, storeCookie, sendEmail, getUserOrSessionId}

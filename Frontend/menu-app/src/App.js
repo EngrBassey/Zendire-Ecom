@@ -8,7 +8,12 @@ import Paymentguide from './components/ShopList/Paymentguide';
 import Footer from './components/Footer/Footer';
 import Api from './API/api';
 import Shopcontextapi from './context/Shopcontextapi';
-
+import Cart from './components/Cartshop/Cart';
+import Main from './components/Hompage/Main';
+import Checkoutpage from './Pages/Checkoutpage';
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
+import Payment from './Pages/Payment';
 
 function App() {
   return (
@@ -20,7 +25,12 @@ function App() {
             <Route path='/' />
             <Route path='/shop' />
             <Route path='/contact' />
-            <Route path='/cart' />
+            <Route path='/cart' element={<Cart />}/>
+            <Route path='/checkout' element={<Checkoutpage />}/>
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/pay' element={<Payment />} />
+            <Route path='/checkout?' />
           </Routes>
         </Router>
         <Header />

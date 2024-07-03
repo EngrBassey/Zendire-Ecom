@@ -11,9 +11,9 @@ const Shoplist = (props) => {
 
     return (
         <div className={classes.shopBox}>
-            { 
+            {
                 data.map((item, i) => (
-                    
+
                     <ul key={i}>
                         <div  className={classes.items}>
                             <img src={`http://localhost:3000${item.images[0]}`} className={classes.shopImag} alt={`${item.name}-img`} />
@@ -21,10 +21,10 @@ const Shoplist = (props) => {
                             {/* <h4>{categories.Categories}</h4> */}
                             <div className={classes.cartbtn}>
                                 <hr />
-                                <button 
+                                <button
                                     onClick={() => addItems(item.sku)}
                                 ><FaCartShopping /></button>
-                                
+
                             </div>
                             <p>${item.price}</p>
                         </div>
