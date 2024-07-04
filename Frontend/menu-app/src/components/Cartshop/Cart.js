@@ -1,6 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ProductContext } from '../../context/Shopcontextapi';
-import classes from './cart.module.css'
+import classes from './cart.module.css';
+import Footer from '../Footer/Footer';
+import CartItems from './CartItems';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const { cartItems, data, getTotalPrice, getTotalProducts } = useContext(ProductContext);
@@ -58,7 +61,7 @@ const Cart = () => {
       )}
       <Footer />
     </div>
-  )
+  );
 }
 
-export default Cart
+export default Cart;

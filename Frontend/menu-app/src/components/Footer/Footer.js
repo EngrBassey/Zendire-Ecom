@@ -16,14 +16,14 @@ const Footer = () => {
                 <div className={classes.box1}>
                     <h5>Products</h5>
                     <div  className={classes.productBox}>
-                        <img src={productData[0].Type[0].image} />
+                        <img src={productData[0].Type[0].image} alt='footer img' />
                         <ul>
                             <h6>Havanna Shirt</h6>
                             <p>$67</p>
                         </ul>
                     </div>
                     <div  className={classes.productBox}>
-                        <img src={productData[0].Type[0].image} />
+                        <img src={productData[0].Type[0].image} alt='footer img' />
                         <ul>
                             <h6>Havanna Shirt</h6>
                             <p>$67</p>
@@ -33,14 +33,14 @@ const Footer = () => {
                 <div className={classes.box1}>
                     <h5>Top Rated Products</h5>
                     <div  className={classes.productBox}>
-                        <img src={productData[0].Type[0].image} />
+                        <img src={productData[0].Type[0].image} alt='footer img' />
                         <ul>
                             <h6>Havanna Shirt</h6>
                             <p>$67</p>
                         </ul>
                     </div>
                     <div  className={classes.productBox}>
-                        <img src={productData[0].Type[0].image} />
+                        <img src={productData[0].Type[0].image} alt='footer img' />
                         <ul>
                             <h6>Havanna Shirt</h6>
                             <p>$67</p>

@@ -3,27 +3,26 @@ import { cart, getCart } from '../API/api';
 
 export const ProductContext = createContext();
 
-
-const Shopcontextapi = ({children}) => {
+const Shopcontextapi = ({ children }) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
 
   // for products data fetching
   useEffect(() => {
-      const fetchData = async () => {
-          try {
-              const response = await fetch('http://localhost:5000/api/product');
-              if (!response.ok) {
-                  throw new Error('Failed to fetch products');
-              }
-              const dataSet = await response.json();
-              setData(dataSet.result);
-          } catch (error) {
-              setError(error.message);
-          }
-      };
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/product');
+        if (!response.ok) {
+          throw new Error('Failed to fetch products');
+        }
+        const dataSet = await response.json();
+        setData(dataSet.result);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
 
-      fetchData();
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -52,9 +51,8 @@ const Shopcontextapi = ({children}) => {
     return initialValues;
   };
 
-  // console.log(getProductValue())
-// add items to cart
-const [cartItems, setItems] = useState(getProductValue());
+  // Initialize cart items state with initial values
+  const [cartItems, setItems] = useState(getProductValue);
 
   // Add item to cart
   const addItems = async(sku) => {
@@ -70,8 +68,8 @@ const [cartItems, setItems] = useState(getProductValue());
         console.log(response)
   };
 
-// add items to cart
-const removeItems = (sku) => {
+  // Remove item from cart
+  const removeItems = (sku) => {
     setItems((prev) => ({
       ...prev,
       [sku]: (prev[sku] || 0) - 1,
@@ -118,7 +116,6 @@ const removeItems = (sku) => {
       removeItems,
       getTotalPrice,
       getTotalProducts,
-
     }}>
       {children}
     </ProductContext.Provider>

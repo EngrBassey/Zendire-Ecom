@@ -8,7 +8,6 @@ const Shoplist = (props) => {
     if (error) {
         return <p>{error}</p>;
     }
-
     return (
         <div className={classes.shopBox}>
             {
@@ -16,7 +15,7 @@ const Shoplist = (props) => {
 
                     <ul key={i}>
                         <div  className={classes.items}>
-                            <img src={`http://localhost:3000${item.images[0]}`} className={classes.shopImag} alt={`${item.name}-img`} />
+                            <img src={`http://localhost:5000${item.images[0]}`} className={classes.shopImag} alt={`${item.name}-img`} />
                             <h5>{item.name}</h5>
                             {/* <h4>{categories.Categories}</h4> */}
                             <div className={classes.cartbtn}>

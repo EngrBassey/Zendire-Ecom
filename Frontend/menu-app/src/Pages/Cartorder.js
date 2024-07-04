@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { Row, Col, Image, Container } from 'react-bootstrap';
 
 const Cartorder = ({ name, image, price, quantity }) => {

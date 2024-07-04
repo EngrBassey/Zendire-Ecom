@@ -1,0 +1,57 @@
+.checkout {
+    margin: 70px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: #3f3f3f;
+}
+.nameinput {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nameinput ul, .form form {
+    display: flex;
+    flex-direction: column;
+}
+.lastinput {
+    margin-left: 10px !important;
+}
+.nameinput ul {
+    margin: 0;
+    padding: 0;
+}
+.checkout input {
+    padding: 10px;
+}
+.checkout input{
+    margin-bottom: 10px;
+    border: 1px solid #c0c0c0;
+}
+.checkout span {
+    color: red;
+}
+.orderbox {
+    background-color: #efefef;
+    padding: 20px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    width: 400px;
+    text-align: center;
+    align-items: center;
+}
+table{
+    width: 300px;
+}
+.orderbox button {
+    margin-top: 70px;
+    background-color: #F5614D;
+    border: none;
+    font-size: 13px;
+    padding: 13px 18px;
+    color: #fff;
+    font-weight: 400;
+    border-radius: 13px;
+    cursor: pointer;
+}
