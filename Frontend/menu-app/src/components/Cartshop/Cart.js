@@ -33,7 +33,7 @@ const Cart = () => {
                       key={item.sku}
                       name={item.name}
                       price={item.price}
-                      image={`http://localhost:5000${item.images[0]}`}
+                      image={`http://localhost:5000/${item.images[0]}`}
                       sku={item.sku}
                     />
                   );

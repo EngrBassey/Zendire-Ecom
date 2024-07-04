@@ -3,12 +3,11 @@ const dotenv = require("dotenv");
 const path = require("path");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 
 const DatabaseClient = require("./config/db");
 const productRoutes = require("./routes/productRoutes");
 const authRoutes = require("./routes/authRoutes");
-
-
 
 const setupSwagger = require("./config/swagger");
 
@@ -16,12 +15,13 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-
 const corsOptions = {
-    origin: 'http://localhost:3000',
-    credentials: true,
+  origin: "http://localhost:3000",
+  credentials: true,
 };
 app.use(cors(corsOptions));
 
@@ -47,6 +47,5 @@ setupSwagger(app);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
 
 module.exports = app;

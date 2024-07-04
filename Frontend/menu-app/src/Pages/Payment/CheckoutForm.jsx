@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './StripePayment.module.css';
 import { placeOrder, resetCart } from '../../API/api';
@@ -56,7 +56,6 @@ const CheckoutForm = ({ shippingDetails, cartItems, amount }) => {
 
     return (
         <div className={styles.container}>
-            <ToastContainer />
             <form onSubmit={handleSubmit} className={styles.stripeForm}>
                 <div className={styles.formGroup}>
                     <label>Card Details</label>

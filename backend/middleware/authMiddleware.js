@@ -43,6 +43,7 @@ const protect = (request, response, next) => {
  * - Ensures that only Admin users are allowed.
  */
 const admin = (request, response, next) => {
+console.log("Admin middleware", request.user)
   if (request.user && request.user.isAdmin) {
     next();
   } else {

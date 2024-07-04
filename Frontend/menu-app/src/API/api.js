@@ -19,11 +19,11 @@ export const loginUser = async (userData) => {
 
         body: JSON.stringify(userData)
     });
-    const data = await response.json()
-    setCookie('Z-Token', data.result.token, 24)
+    const data = await response.json();
+    setCookie('Z-Token', data.result.token, 24);
+    localStorage.setItem('user', JSON.stringify(data.result));
     return data;
 }
-
 
 export const registerUser = async (userData) => {
     const response = await fetch(`${API_URL}/auth/register`, {
@@ -35,8 +35,9 @@ export const registerUser = async (userData) => {
         credentials: 'include',
         body: JSON.stringify(userData)
     });
-    const data = await response.json()
+    const data = await response.json();
     setCookie('Z-Token', data.result.token, 24);
+    localStorage.setItem('user', JSON.stringify(data.result));
     return data;
 }
 
@@ -122,3 +123,58 @@ export const resetCart = async () => {
     const data = await response.json();
     return data;
 }
+
+export const createProduct = async (productData) => {
+
+    const data = {
+      ...productData,
+    };
+
+    console.log(data);
+
+    const response = await fetch(`${API_URL}/product/new`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data),
+      withCredentials: true,
+      credentials: 'include'
+    });
+
+    const result = await response.json();
+    return result;
+  };
+
+
+  export const updateProduct = async (sku, productData) => {
+    const formData = new FormData();
+    formData.append('name', productData.name);
+    formData.append('description', productData.description);
+    formData.append('price', productData.price);
+    formData.append('numberOfProductsAvailable', productData.numberOfProductsAvailable);
+    productData.images.forEach(image => formData.append('images', image));
+
+      const response = await fetch(`${API_URL}/product/update/${sku}`, {
+        method: 'PUT',
+        body: formData,
+        withCredentials: true,
+        credentials: 'include'
+      });
+      const data = await response.json();
+      return data;
+  };
+
+export const deleteProduct = async (sku) => {
+        const response = await fetch(`${API_URL}/product/delete/${sku}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+            credentials: 'include'
+        });
+        const data = await response.json();
+        return data
+    }
+
