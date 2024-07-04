@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createContext } from 'react';
+import { cart, getCart, removeFromCart } from '../API/api';
 
 export const ProductContext = createContext();
 
@@ -6,7 +7,7 @@ const Shopcontextapi = ({ children }) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
 
-  // Fetching products data
+  // for products data fetching
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,6 +25,23 @@ const Shopcontextapi = ({ children }) => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      try {
+        const cartData = await getCart();
+        const cartItems = cartData.result.cartItems.reduce((acc, item) => {
+          acc[item.product] = item.quantity;
+          return acc;
+        }, {});
+        setItems(cartItems);
+      } catch (error) {
+        console.error('Failed to fetch cart:', error);
+      }
+    };
+
+    fetchCartItems();
+  }, []);
+
   // Getting products initial values
   const getProductValue = () => {
     const initialValues = {};
@@ -37,19 +55,23 @@ const Shopcontextapi = ({ children }) => {
   const [cartItems, setItems] = useState(getProductValue);
 
   // Add item to cart
-  const addItems = (sku) => {
+  const addItems = async(sku) => {
     setItems((prev) => ({
       ...prev,
-      [sku]: (prev[sku] || 0) + 1, // Initialize with 0 if not already set
+      [sku]: (prev[sku] || 0) + 1,
     }));
+    const response = await cart(sku, 1);
+        console.log(response)
   };
 
   // Remove item from cart
-  const removeItems = (sku) => {
+  const removeItems = async(sku) => {
     setItems((prev) => ({
       ...prev,
-      [sku]: (prev[sku] || 0) - 1, // Initialize with 0 if not already set
+      [sku]: (prev[sku] || 0) - 1,
     }));
+    const response = await removeFromCart(sku);
+    console.log("Removed",response)
   };
 // getting total price
   const getTotalPrice = () => {
@@ -61,23 +83,37 @@ const Shopcontextapi = ({ children }) => {
   // console.log(getTotalPrice())
 
   // getting the Total products
-  const getTotalProducts = () => {
-    return Object.values(cartItems).reduce((total, num) => total + num, 0);
+   const getTotalProducts = async (cartItems) => {
+    if (Object.keys(cartItems).length > 0) {
+      return Object.values(cartItems).reduce((total, num) => total + num, 0);
+    } else {
+      try {
+        const data = await getCart();
+          console.log("Cart", data.result.cartItems);
+        if (data && data.result.cartItems) {
+            return data.result.cartItems.reduce((total, item) => total + item.quantity, 0);
+        } else {
+          return 0;
+        }
+      } catch (error) {
+        console.error('Failed to fetch cart:', error);
+        return 0; // or handle error accordingly
+      }
+    }
   };
 
 
   console.log(cartItems);
 
   return (
-    <ProductContext.Provider value={{ 
+    <ProductContext.Provider value={{
       data,
       error,
-      cartItems, 
+      cartItems,
       addItems,
       removeItems,
       getTotalPrice,
       getTotalProducts,
-      
     }}>
       {children}
     </ProductContext.Provider>

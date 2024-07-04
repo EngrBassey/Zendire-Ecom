@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const redisClient = require("./redisClient");
+const { v4: uuidv4 } = require('uuid');
 
 
 /**
@@ -48,7 +49,7 @@ const cacheToken = async (token, user) => {
     email: user.email,
     isAdmin: user.isAdmin,
   };
-  await redisClient.setValue(token, JSON.stringify(userDetails));
+  await redisClient.setValue(token, JSON.stringify(userDetails), 24 * 3600 * 1000);
 };
 
 /**
@@ -90,15 +91,50 @@ const storeCookie = (response, token) => {
   return response.cookie("Z-Token", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV == "production",
-    maxAge: 24 * 60 * 60 * 1000, //1day
+    maxAge: 24 * 3600 * 1000, //1day
   });
 };
 
+/**
+ * Handles Session id for unauthenticated users;
+ * @param {} request
+ * @param {*} response
+ * @param {*} next
+ */
+const checkSessionId = (request, response, next) => {
+    if (request.path.startsWith('/api/auth')) {
+        return next();
+      }
+  if (!request.user) {
+    if (!request.cookies["session-id"]) {
+      const sessionId = uuidv4();
+      response.cookie("session-id", sessionId, {
+        httpOnly: true,
+        maxAge: 24 * 3600 * 1000, // 1day
+      });
+      request.sessionId = sessionId;
+    } else {
+      request.sessionId = request.cookies["session-id"];
+    }
+  }
+  next();
+};
 /**
  * Returns User Id or SessionId
  * @param {*} req Request object
  * @returns
  */
-const getUserOrSessionId = (req) => (req.user ? req.user._id : req.sessionId);
+const getUserOrSessionId = (req) => {
+    if (req.user) {
+      return req.user._id;
+    } else {
+      if (!req.cookies["session-id"]) {
+        const sessionId = uuidv4();
+        req.cookies["session-id"] = sessionId;
+      }
+      return req.cookies["session-id"];
+    }
+  };
+
 
 module.exports = {hashPassword, verifyPassword, cacheToken, generateToken, storeCookie, sendEmail, getUserOrSessionId}

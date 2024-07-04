@@ -81,10 +81,16 @@ class AuthController {
       return response.status(201).send({
         success: true,
         message: "User logged in",
-        result: { _id: user._id, username: user.username, email: user.email, token },
+        result: {
+          _id: user._id,
+          username: user.username,
+          email: user.email,
+          isAdmin: user.isAdmin,
+          token,
+        },
       });
     } else {
-      res
+      response
         .status(400)
         .send({ success: false, message: "Invalid user data", result: "" });
     }

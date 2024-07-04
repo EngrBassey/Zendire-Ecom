@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ProductContext } from '../../context/Shopcontextapi';
 import classes from './cart.module.css';
 import Footer from '../Footer/Footer';
@@ -7,9 +7,17 @@ import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const { cartItems, data, getTotalPrice, getTotalProducts } = useContext(ProductContext);
+  const [totalProducts, setTotalProducts] = useState(0);
   const navigate = useNavigate();
 
-  const totalProducts = getTotalProducts();
+
+  useEffect(() => {
+    const fetchTotalProducts = async () => {
+      const total = await getTotalProducts(cartItems);
+      setTotalProducts(total);
+    };
+    fetchTotalProducts();
+  }, [cartItems]);
 
   return (
     <div className={classes.cart}>
@@ -25,7 +33,7 @@ const Cart = () => {
                       key={item.sku}
                       name={item.name}
                       price={item.price}
-                      image={`http://localhost:5000${item.images[0]}`} // Use the first image for each item
+                      image={`http://localhost:5000/${item.images[0]}`}
                       sku={item.sku}
                     />
                   );

@@ -1,87 +1,190 @@
-import React, { useContext } from 'react';
-import classes from './checkoutpage.module.css'
-import Footer from '../components/Footer/Footer';
-import { ProductContext } from '../context/Shopcontextapi';
-import Cartorder from './Cartorder';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useState, useEffect } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import classes from "./checkoutpage.module.css";
+import Footer from "../components/Footer/Footer";
+import { ProductContext } from "../context/Shopcontextapi";
+import Cartorder from "./Cartorder";
+import { useNavigate } from "react-router-dom";
+import Payment from "./Payment";
+import StripePayment from "./Payment/Stripe";
+
+const stripePromise = loadStripe(
+  "pk_test_51PXlOARuMbncactcOei3uWWUYSeTVEt6Gmwe40o1DuKVYqPTir5sx4y7AKK9kLGV19uABLPXqAWiSYjZSzzJdXcP00Mux0JpHf"
+);
 
 const Checkoutpage = () => {
-    const {cartItems, data, getTotalPrice } = useContext(ProductContext);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { cartItems, data, getTotalPrice } = useContext(ProductContext);
+  const [shippingDetails, setShippingDetails] = useState({});
+  const [cartItems_, setCartItems] = useState({});
+  const [amount, setAmount] = useState(0);
+  const [orderData, setOrderData] = useState({
+    address: "",
+    city: "",
+    postalCode: "",
+    country: "",
+  });
 
-    return (
-        <div className={classes.container}>
-            <div className={classes.checkout}>
-                <div className={classes.form}>
-                    <form>
-                        <h1>Bill Details</h1>
-                        <div className={classes.nameinput}>
-                            <ul>
-                                <label>First Name<span>*</span></label>
-                                <input
-                                    type='text'
-                                    required
-                                />
-                            </ul>
-                            <ul className={classes.lastinput}>
-                                <label>Last Name<span>*</span></label>
-                                <input
-                                    type='text'
-                                    required
-                                />
-                            </ul>
-                        </div>
+  const handleChange = (e) => {
+    setOrderData({ ...orderData, [e.target.name]: e.target.value });
+  };
 
-                        <label>Company Name(Optional)</label>
-                        <input type='text' />
-                        <label>Email<span>*</span></label>
-                        <input
-                            type='text'
-                            required
-                        />
-                        <label>Phone<span>*</span></label>
-                        <input
-                            type='number'
-                            required
-                        />
-                    </form>
-                </div>
-                <div className={classes.orderbox}>
-                    <div className={classes.box1}>
-                        <h1>Your Order</h1>
-                        <div className={classes.supbox}>
-                            <table>
-                                <tr>
-                                    <th>PRODUCTS</th>
-                                    <th>SUBTOTAL</th>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        {data.map((item, i) => {
-                                            if (cartItems[item.sku]) {
-                                                return (
-                                                    <Cartorder
-                                                        key={item.sku}
-                                                        name={item.name}
-                                                        sku={item.sku}
-                                                    />
-                                                );
-                                            }
-                                            return null;
-                                        })}
-                                    </td>
-                                    <td>${getTotalPrice()}</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <button onClick={() => navigate('/stripe')}>PLACE ORDER</button>
-                    </div>
-                </div>
+  const handleOrder = async (e) => {
+    e.preventDefault();
+    const shippingDets = { ...orderData };
+    setShippingDetails(shippingDets);
+
+    const myCartItems = data.reduce((acc, item) => {
+      if (cartItems[item.sku]) {
+        acc[item.sku] = {
+          product: item._id,
+          sku: item.sku,
+          quantity: cartItems[item.sku],
+          name: item.name,
+          price: item.price,
+          image: `http://localhost:5000/${item.images[0]}`,
+        };
+      }
+      return acc;
+    }, {});
+    setCartItems(myCartItems);
+    // console.log(cartItems, "Refined");
+
+    const totalAmount = getTotalPrice().toFixed(2);
+    setAmount(totalAmount);
+    console.log("Amount is", amount);
+    navigate("/pay", {
+      state: {
+        shippingDetails: shippingDets,
+        cartItems: myCartItems,
+        amount: totalAmount,
+      },
+    });
+  };
+
+  return (
+    <form onSubmit={handleOrder}>
+      <div className={classes.container}>
+        <div className={classes.checkout}>
+          <div className={classes.form}>
+            <h1>Billing Details</h1>
+            {/* Form fields for shipping details */}
+            <div className={classes.nameinput}>
+              <ul>
+                <label>Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={orderData.name}
+                  onChange={handleChange}
+                />
+              </ul>
+              <ul>
+                <label>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={orderData.email}
+                  onChange={handleChange}
+                />
+              </ul>
             </div>
-            <Footer />
+            <div className={classes.nameinput}>
+              <ul>
+                <label>
+                  Address<span>*</span>
+                </label>
+                <input
+                  type="text"
+                  name="address"
+                  value={orderData.address}
+                  onChange={handleChange}
+                  required
+                />{" "}
+              </ul>
+              <ul>
+                <label>
+                  City<span>*</span>
+                </label>
+                <input
+                  type="text"
+                  name="city"
+                  value={orderData.city}
+                  onChange={handleChange}
+                  required
+                />
+              </ul>
+            </div>
+            <div className={classes.nameinput}>
+              <ul className={classes.lastinput}>
+                <label>
+                  Postal Code<span>*</span>
+                </label>
+                <input
+                  type="text"
+                  name="postalCode"
+                  value={orderData.postalCode}
+                  onChange={handleChange}
+                  required
+                />
+              </ul>
+              <ul>
+                <label>Country<span>*</span></label>
+                <input
+                  type="text"
+                  name="country"
+                  value={orderData.country}
+                  onChange={handleChange}
+                />
+              </ul>
+            </div>
+          </div>
+
+          <div className={classes.orderbox}>
+            <div className={classes.box1}>
+              <h1>Your Order(s)</h1>
+              <div className={classes.supbox}>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>PRODUCTS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.map((item) => {
+                      if (cartItems[item.sku]) {
+                        return (
+                          <Cartorder
+                            key={item.sku}
+                            name={item.name}
+                            price={item.price}
+                            quantity={cartItems[item.sku]}
+                            sku={item.sku}
+                            image={`http://localhost:5000/${item.images[0]}`}
+                          />
+                        );
+                      }
+                      return null;
+                    })}
+                    <tr>
+                      <td>
+                        <h5>Total </h5>
+                      </td>
+                      <td>
+                        <h5>${getTotalPrice().toFixed(2)}</h5>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <button type="submit">PLACE ORDER</button>
+            </div>
+          </div>
         </div>
+        <Footer />
+      </div>
+    </form>
+  );
+};
 
-    )
-}
-
-export default Checkoutpage
+export default Checkoutpage;

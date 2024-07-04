@@ -2,6 +2,8 @@ const stripe = require("../config/stripe");
 const asyncHandler = require("express-async-handler");
 const Order = require("../models/orderModel");
 const { v4: uuidv4 } = require("uuid");
+const { getUserOrSessionId } = require("../utils/userUtils");
+const redisClient = require("../utils/redisClient");
 
 /**
  * Handles Payment functionalities
@@ -20,7 +22,9 @@ class PaymentController {
         currency = "usd",
         paymentMethodId,
         shippingDetails,
+        cart_
       } = request.body;
+      console.log("Here", cart_)
 
       const userOrSessionId = getUserOrSessionId(request);
       const id = `order:${userOrSessionId}`;
@@ -33,7 +37,7 @@ class PaymentController {
         });
       }
       const paymentIntent = await stripe.paymentIntents.create({
-        amount,
+        amount: amount * 100,
         currency,
         payment_method: paymentMethodId,
         confirm: true,
@@ -43,27 +47,35 @@ class PaymentController {
         },
       });
 
-      let cart = await redisClient.getValue(id);
+    //     let cart;
+    // if (id) {
 
-      if (!cart || cart.cartItems.length < 0) {
-        return response.status(400).send({
+    //     cart = await redisClient.getValue(id);
+    //     cart = JSON.parse(cart);
+    // } else {
+    //     cart = cart_;
+    //     console.log(cart_);
+    // }
+
+      if (!cart_) {
+        return response.status(404).send({
           success: false,
           message: "Cart is empty",
           result: "",
         });
       }
-      cart = JSON.parse(cart);
-      const orderItems = cart.cartItems.map((item) => ({
+
+      const orderItems = Object.values(cart_).map((item) => ({
         name: item.name,
         product: item.product,
-        image: item.image,
+        image: `/uploads/${item.image.split('/').pop()}`,
         price: item.price,
         quantity: item.quantity,
       }));
-      const totalPrice = cart.cartItems.reduce(
-        (acc, item) => acc + item.quantity * item.price,
-        0
-      );
+    //   const totalPrice = cart_.cartItems.reduce(
+    //     (acc, item) => acc + item.quantity * item.price,
+    //     0
+    //   );
 
       const shippingAddress = {
         address: shippingDetails.address,
@@ -76,7 +88,7 @@ class PaymentController {
         orderItems,
         shippingAddress,
         paymentMethod: "card",
-        totalPrice,
+        totalPrice: amount,
         isPaid: true,
         paidAt: Date.now(),
         paymentInfo: {
@@ -86,10 +98,12 @@ class PaymentController {
       };
 
       let createdOrder;
+        console.log(request);
       if (request.user) {
         // Authenticated user, save order to db
         const order = new Order(orderData);
         createdOrder = await order.save();
+        console.log('Created in db')
       } else {
         // Unauthenticated user, save order to Redis
         const orderId = `order:${uuidv4()}`;
@@ -103,7 +117,7 @@ class PaymentController {
 
       return response.status(201).send({
         success: true,
-        message: "Payment processed successfully",
+        message: "Order placed successfully",
         result: createdOrder,
       });
     } catch (error) {
