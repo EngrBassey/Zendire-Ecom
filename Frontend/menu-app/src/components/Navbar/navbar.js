@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import classes from './navbar.module.css';
 import logo from '../../assert/Zendir-logo.png';
 import { FaCartShopping } from "react-icons/fa6";
-import { FaTwitter } from "react-icons/fa";
-import { FaFacebookF } from "react-icons/fa6";
 
 const Navbar = () => {
     return (
@@ -15,21 +13,17 @@ const Navbar = () => {
                 </div>
                 <div className={classes.navbarbox2} >
                     <Link to='/'>Home</Link>
-                    <Link to='/categories'>Categories</Link>
-                    <Link to='/products'>Products</Link>
-                    <Link to='/patners'>Patners</Link>
-                    <Link to='/shop'>Shop</Link>
-                    <Link to='/contact'>Contact</Link>
+                    <Link to=''>Categories</Link>
+                    <Link to=''>Products</Link>
+                    <Link to=''>Patners</Link>
+                    <Link to=''>Shop</Link>
+                    <Link to=''>Contact</Link>
                     <div>
                         <Link to="/cart">
                             <FaCartShopping />
                         </Link>
-                        <Link>
-                            <FaTwitter />
-                        </Link>
-                        <Link>
-                            <FaFacebookF />
-                        </Link>
+                        <Link to='/login'>Login</Link>
+                        <Link to='/register'>Signup</Link>
                     </div>
                 </div>
             </div>

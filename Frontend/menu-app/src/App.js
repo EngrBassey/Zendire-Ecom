@@ -14,6 +14,8 @@ import OrderHistory from './Pages/OrderHistory';
 import AdminRoute from './components/AdminRoute';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Message from './Pages/Message/Message'
+import Update from './Pages/Product/Update';
 
 function App() {
   return (
@@ -34,6 +36,9 @@ function App() {
             <Route path='/addproduct' element={<AdminRoute><Addproduct /></AdminRoute>} />
             <Route path='/removeproduct' element={<AdminRoute><Removeproduct /></AdminRoute>} />
             <Route path='/pay' element={<StripePayment />} />
+            <Route path='/welcome' element={<Message />} />
+            <Route path='/update' element={<Update />}/>
+
           </Routes>
         </Router>
         <ToastContainer />

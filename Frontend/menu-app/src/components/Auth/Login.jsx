@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { loginUser } from "../../API/api";
+import './Login.css';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -30,7 +31,7 @@ function Login() {
     }
     return (
         <Container className="d-flex flex-column justify-content-center align-items-center vh-100">
-            <Row className="w-100">
+            <Row className="w-100 d-login">
 
                 <Col xs={12} md={6} lg={4} className="mx-auto">
 
