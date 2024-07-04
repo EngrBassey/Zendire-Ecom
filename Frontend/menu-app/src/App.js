@@ -1,4 +1,5 @@
 import './App.css';
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from './components/Navbar/navbar';
 import Shopcontextapi from './context/Shopcontextapi';
@@ -11,6 +12,7 @@ import Payment from './Pages/Payment';
 import Addproduct from './Pages/Product/Addproduct';
 import Removeproduct from './Pages/Product/Removeproduct';
 import StripePayment from './Pages/Payment/Stripe';
+import OrderHistory from './Pages/OrderHistory';
 
 function App() {
   return (
@@ -26,7 +28,7 @@ function App() {
             <Route path='/checkout' element={<Checkoutpage />}/>
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
-            {/* <Route path='/pay' element={<Payment />} /> */}
+            <Route path='/order/history' element={<OrderHistory />} />
             <Route path='/checkout' />
             <Route path='/addproduct' element={<Addproduct />}/>
             <Route path='/removeproduct' element={<Removeproduct />}/>

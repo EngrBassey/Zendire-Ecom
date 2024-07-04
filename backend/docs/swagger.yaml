@@ -41,13 +41,6 @@ components:
             type: string
             format: binary
           description: The list of product images
-      example:
-        name: Sample Product
-        description: This is a sample product
-        price: 99.99
-        sku: SAMPLE-SKU-001
-        numberOfProductsAvailable: 100
-        images: []
     Cart:
       type: object
       properties:

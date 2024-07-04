@@ -98,10 +98,12 @@ class PaymentController {
       };
 
       let createdOrder;
+        console.log(request);
       if (request.user) {
         // Authenticated user, save order to db
         const order = new Order(orderData);
         createdOrder = await order.save();
+        console.log('Created in db')
       } else {
         // Unauthenticated user, save order to Redis
         const orderId = `order:${uuidv4()}`;

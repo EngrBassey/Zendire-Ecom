@@ -11,16 +11,16 @@ const setUser = asyncHandler(async (request, response, next) => {
     const token = request.cookies["Z-Token"];
 
     if (token) {
-      const userDetails = await redisClient.getValue(token);
-      if (!userDetails) {
-        console.log("Invalid token, user details not found.");
-      } else {
-        request.user = JSON.parse(userDetails);
-        console.log("Middleware", request.user);
-      }
+        const userDetails = await redisClient.getValue(token);
+        if (!userDetails) {
+            console.log("Invalid token, user details not found.");
+        } else {
+            request.user = JSON.parse(userDetails);
+            console.log("Middleware", request.user);
+        }
     }
     next();
-  });
+});
 
 /**
  * Defines Auth Middleware

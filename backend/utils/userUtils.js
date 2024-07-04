@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const redisClient = require("./redisClient");
+const { v4: uuidv4 } = require('uuid');
 
 
 /**
@@ -48,7 +49,7 @@ const cacheToken = async (token, user) => {
     email: user.email,
     isAdmin: user.isAdmin,
   };
-  await redisClient.setValue(token, JSON.stringify(userDetails));
+  await redisClient.setValue(token, JSON.stringify(userDetails), 24 * 3600 * 1000);
 };
 
 /**
@@ -90,7 +91,7 @@ const storeCookie = (response, token) => {
   return response.cookie("Z-Token", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV == "production",
-    maxAge: 24 * 60 * 60 * 1000, //1day
+    maxAge: 24 * 3600 * 1000, //1day
   });
 };
 

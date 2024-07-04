@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from 'react';
-import { cart, getCart } from '../API/api';
+import { cart, getCart, removeFromCart } from '../API/api';
 
 export const ProductContext = createContext();
 
@@ -61,19 +61,17 @@ const Shopcontextapi = ({ children }) => {
       [sku]: (prev[sku] || 0) + 1,
     }));
     const response = await cart(sku, 1);
-        if (response.success) {
-            console.log("Backend Res:", response);
-
-        }
         console.log(response)
   };
 
   // Remove item from cart
-  const removeItems = (sku) => {
+  const removeItems = async(sku) => {
     setItems((prev) => ({
       ...prev,
       [sku]: (prev[sku] || 0) - 1,
     }));
+    const response = await removeFromCart(sku);
+    console.log("Removed",response)
   };
 // getting total price
   const getTotalPrice = () => {

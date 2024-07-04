@@ -1,66 +1,22 @@
-import React, { useState, useContext } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import { Elements } from '@stripe/react-stripe-js';
 import styles from './StripePayment.module.css';
 import Footer from '../../components/Footer/Footer';
-import { ProductContext } from '../../context/Shopcontextapi';
+import CheckoutForm from './CheckoutForm';
+import { loadStripe } from '@stripe/stripe-js';
 
-// Load your Stripe publishable key
-const stripePromise = loadStripe('your-publishable-key-here');
-
-const CheckoutForm = () => {
-    const stripe = useStripe();
-    const elements = useElements();
-    const [message, setMessage] = useState('');
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
-        if (!stripe || !elements) {
-            return;
-        }
-
-        const cardElement = elements.getElement(CardElement);
-
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
-            type: 'card',
-            card: cardElement,
-        });
-
-        if (error) {
-            setMessage(error.message);
-        } else {
-            setMessage('Payment successful!');
-            // Process paymentMethod.id with your backend
-        }
-    };
-
-    const { getTotalPrice } =useContext(ProductContext);
-
-    return (
-        <div className={styles.container}>
-            <form onSubmit={handleSubmit} className={styles.stripeForm}>
-                <div className={styles.formGroup}>
-                    <label>Card Details</label>
-                    <CardElement className={styles.cardElement} />
-                </div>
-                <div className={styles.amount}>
-                    <label>Debit Amount: ${getTotalPrice().toFixed(2)}</label>
-                </div>
-                <button type="submit" disabled={!stripe} className={styles.submitButton}>
-                    Pay
-                </button>
-                {message && <p className={styles.message}>{message}</p>}
-            </form>
-        </div>
-    );
-};
+const stripePromise = loadStripe('pk_test_51PXlOARuMbncactcOei3uWWUYSeTVEt6Gmwe40o1DuKVYqPTir5sx4y7AKK9kLGV19uABLPXqAWiSYjZSzzJdXcP00Mux0JpHf');
 
 const StripePayment = () => {
+    const location = useLocation();
+    const { shippingDetails, cartItems, amount } = location.state || {};
+    console.log(shippingDetails, cartItems, amount)
+
     return (
         <div>
             <Elements stripe={stripePromise}>
-                <CheckoutForm />
+                <CheckoutForm shippingDetails={shippingDetails} cartItems={cartItems} amount={amount} />
             </Elements>
             <Footer />
         </div>

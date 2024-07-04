@@ -103,11 +103,11 @@ class CartController {
   removeFromCart = asyncHandler(async (request, response) => {
     const userOrSessionId = getUserOrSessionId(request);
     const id = `cart:${userOrSessionId}`;
-    const { productId } = request.params;
-    if (!productId)
+    const { sku } = request.params;
+    if (!sku)
       return response.status(400).send({
         success: false,
-        message: "productId is missing",
+        message: "Product SKU is missing",
         result: "",
       });
 
@@ -116,7 +116,7 @@ class CartController {
     if (cart) {
       cart = JSON.parse(cart);
       cart.cartItems = cart.cartItems.filter(
-        (item) => item.product.toString() !== productId
+        (item) => item.product.toString() !== sku
       );
       redisClient.setValue(id, JSON.stringify(cart), 24 * 3600);
       return response.status(200).send({
@@ -125,13 +125,35 @@ class CartController {
         result: cart,
       });
     } else {
-      return response.status(200).send({
+      return response.status(404).send({
         success: true,
-        message: "Cart id empty",
+        message: "Cart is empty",
         result: "",
       });
     }
   });
+
+  deleteCart = asyncHandler(async (request, response) => {
+    const userOrSessionId = getUserOrSessionId(request);
+    const id = `cart:${userOrSessionId}`;
+    let cart = await redisClient.getValue(id);
+
+    if (!cart) {
+        return response.status(404).send({
+            success: false,
+            message: "Cart id empty",
+            result: "",
+          });
+    }else {
+        redisClient.deleteValue(id);
+        return response.status(200).send({
+            success: true,
+            message: "Cart has been reset",
+            result: "",
+          });
+        }
+
+    })
 }
 
 module.exports = new CartController();
