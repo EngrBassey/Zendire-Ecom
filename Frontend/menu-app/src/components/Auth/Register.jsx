@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import "bootstrap/dist/css/bootstrap.min.css";
+import './Login.css'
 
 function Register() {
     const [data, setData] = useState({
@@ -31,7 +32,7 @@ function Register() {
     }
     return (
         <Container className="d-flex flex-column justify-content-center align-items-center vh-100">
-            <Row className="w-100">
+            <Row className="w-100 d-login">
             {/* <h2>Register</h2> */}
                 <Col xs={12} md={6} lg={4} className="mx-auto">
                     <Form onSubmit={handleSubmit} className="p-4 border rounded shadow-sm mb-5 bg-warning">

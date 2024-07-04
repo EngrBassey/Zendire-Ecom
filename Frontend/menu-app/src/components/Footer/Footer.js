@@ -1,7 +1,11 @@
 import React from 'react';
+import { FaTwitter } from "react-icons/fa";
+import { FaFacebookF } from "react-icons/fa6";
 import classes from './footer.module.css';
 import productData from '../ProdctData/productData';
-import logo from '../../assert/white-logo.png'
+import logo from '../../assert/white-logo.png';
+import { Link } from 'react-router-dom';
+import { IoCall } from "react-icons/io5";
 
 const Footer = () => {
     return (
@@ -12,6 +16,13 @@ const Footer = () => {
                     <p>
                         Duis semper mauris vitae purus rhoncus suscipit. Nunc dictum dapibus tellus, at viverra risus pharetra id. Nulla facilisi. Ut mollis et augue non gravida.
                     </p>
+                    <Link>
+                        <FaTwitter />
+                    </Link>
+                    <Link>
+                        <FaFacebookF />
+                    </Link>
+                    <p className={classes.call}><IoCall /> +020-986-77</p>
                 </div>
                 <div className={classes.box1}>
                     <h5>Products</h5>

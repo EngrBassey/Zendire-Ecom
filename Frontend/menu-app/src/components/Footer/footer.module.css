@@ -15,10 +15,15 @@
     width: 30%;
     margin-right: 10%;
 }
-.logo p {
-    font-size: 14px;
+.logo p{
+    font-size: 16px;
     font-weight: 200;
     color: #efefef;
+}
+.logo a {
+    color: #fff;
+    font-size: 18px;
+    margin-right: 5px;
 }
 .footerBox ul {
     margin: 0;
@@ -54,4 +59,7 @@ footer {
     background-color: #1b1a1a;
     text-align: center;
     padding: 10px;
+}
+.call {
+    margin-top: 8px;
 }

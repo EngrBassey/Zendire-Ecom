@@ -10,18 +10,26 @@
 .headerContainer {
     text-align: center;
     color: #fff;
-    font-size: 2rem;
 }
 .headerContainer h1 {
     border: 2px solid #fff;
     border-radius: 60px;
-    padding: 15px;
+    padding: 15px 20px;
+    font-size: 5rem;
+    margin-bottom: 40px;
 }
 .btn1, .btn2 {
     border: none;
-    padding: 20px;
+    padding: 15px;
     border-radius: 30px;
+    font-weight: 500;
+}
+.btn1:hover, .btn2:hover {
+    padding-right: 35px;
+    transition: ease-in 0.3s;
 }
 .btn2 {
     background-color: #F5614D;
+    margin-left: 10px;
+    color: #fff !important;
 }
