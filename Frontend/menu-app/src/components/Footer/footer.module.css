@@ -63,3 +63,11 @@ footer {
 .call {
     margin-top: 8px;
 }
+@media screen and (max-width: 695px){
+    .footerBox {
+        flex-wrap: wrap !important;
+    }
+    .logo, .box1 {
+        width: 400px;
+    }
+}

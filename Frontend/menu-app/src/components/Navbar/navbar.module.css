@@ -2,19 +2,28 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 12px 40px;
+    padding: 12px 40px;
+    background-color: #fff; /* Ensure the navbar has a background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow for better visibility */
 }
+
 .position {
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
-    background-color: white; /* Ensure the navbar has a background */
     z-index: 1000; /* Ensure it stays on top */
 }
+
 .navbarbox1 img {
     width: 100px;
 }
+
+.navbarbox2 {
+    display: flex;
+    align-items: center;
+}
+
 .navbarbox2 a {
     margin: 0 10px;
     text-decoration: none;
@@ -22,12 +31,68 @@
     font-weight: 500;
     color: #000;
 }
-.navbarbox2 {
-    display: flex;
-}
-.navbarbox2 div {
-    margin-left: 2rem;
-}
+
 .navbarbox2 a:hover {
     color: #F5614D;
+}
+
+.iconLinks {
+    display: flex;
+    align-items: center;
+    margin-left: 2rem;
+}
+
+.iconLinks a {
+    margin-left: 10px;
+}
+
+/* Mobile Menu Toggle Button */
+.toggleButton {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+}
+
+/* Show menu for small screens */
+.showMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 60px; /* Adjust based on your navbar height */
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .navbarbox2 {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbarbox2 a {
+        margin: 10px 0;
+        font-size: 16px;
+    }
+
+    .iconLinks {
+        flex-direction: row;
+        margin-top: 10px;
+    }
+
+    .toggleButton {
+        display: block;
+    }
+
+    .showMenu {
+        display: flex;
+    }
 }

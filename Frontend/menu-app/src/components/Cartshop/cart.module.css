@@ -10,7 +10,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    flex-wrap: wrap
+}
+.box1, .checkout {
+    width: 400px;
 }
 .items {
     display: flex;

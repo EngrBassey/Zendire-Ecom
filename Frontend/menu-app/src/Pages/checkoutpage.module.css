@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: space-around;
     color: #3f3f3f;
+    flex-wrap: wrap;
 }
 .nameinput {
     display: flex;
@@ -54,4 +55,13 @@ table{
     font-weight: 400;
     border-radius: 13px;
     cursor: pointer;
+}
+@media screen and (max-width: 460px){
+    .checkout {
+        justify-content: center !important;
+        width: 100%;
+    }
+    .nameinput {
+        flex-direction: column !important;
+    }
 }

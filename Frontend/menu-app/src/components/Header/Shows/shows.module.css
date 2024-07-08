@@ -8,7 +8,7 @@
 
 .box1, .box2 {
     width: 40%;
-    height: 50vh;
+    height: 40vh;
     background-repeat: no-repeat;
     margin: 20px;
     background-color: rgba(0, 0, 0, 0.5); 
@@ -33,4 +33,18 @@
 }
 .box2 {
     background-image: url(../../../assert/trinh-minh.jpg);
+}
+@media screen and (max-width: 630px) {
+    .box1, .box2 {
+        height: 30vh;
+        width: 50%;
+    }
+    .accessories  {
+        flex-wrap: wrap;
+    }
+}
+@media screen and (max-width: 470px) {
+    .box1, .box2 {
+        width: 70%;
+    }
 }
