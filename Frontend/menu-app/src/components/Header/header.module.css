@@ -33,3 +33,14 @@
     margin-left: 10px;
     color: #fff !important;
 }
+@media screen and (max-width: 998px) {
+    .headerContainer h1 {
+        padding: 0;
+        border: none;
+    }
+}
+@media screen and (max-width: 598px) {
+    .headerContainer h1 {
+        font-size: 48px;
+    }
+}

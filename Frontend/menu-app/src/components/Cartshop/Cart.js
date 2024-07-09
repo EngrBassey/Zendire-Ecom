@@ -25,7 +25,7 @@ const Cart = () => {
         <>
           <h1>My Cart items</h1>
           <div className={classes.additems}>
-            <div>
+            <div className={classes.box1}>
               {data.map((item, i) => {
                 if (cartItems[item.sku]) {
                   return (

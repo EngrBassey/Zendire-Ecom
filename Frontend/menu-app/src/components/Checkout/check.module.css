@@ -19,6 +19,7 @@
     list-style: none;
     justify-content: space-between;
     width: 60%;
+    flex-wrap: wrap;
 }
 .categories ul li:not(:first-child) {
     border: 1px solid #e6e6e6;
