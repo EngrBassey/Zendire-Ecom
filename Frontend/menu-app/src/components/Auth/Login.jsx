@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../API/api";
 import './Login.css';
 import Button from 'react-bootstrap/Button';
@@ -12,7 +13,9 @@ function Login() {
     const [data, setData] = useState({
         email: '',
         password: ''
-    })
+    });
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setData({
@@ -20,23 +23,25 @@ function Login() {
             [e.target.name]: e.target.value
         });
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await loginUser(data);
         if (response.success) {
             alert('Login success');
             console.log("Cookies after login:", document.cookie);
+            navigate('/welcome'); // Navigate to the welcome page
+        } else {
+            alert('Login failed');
         }
-        console.log(response)
-    }
+        console.log(response);
+    };
+
     return (
         <Container className="d-flex flex-column justify-content-center align-items-center vh-100">
             <Row className="w-100 d-login">
-
                 <Col xs={12} md={6} lg={4} className="mx-auto">
-
                     <Form onSubmit={handleSubmit} className="p-4 border rounded shadow-sm mb-5 bg-warning">
-                    {/* <h2 >Login</h2> */}
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
                             <Form.Control
@@ -46,9 +51,7 @@ function Login() {
                                 value={data.email}
                                 onChange={handleChange}
                             />
-
                         </Form.Group>
-
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control
@@ -59,7 +62,6 @@ function Login() {
                                 onChange={handleChange}
                             />
                         </Form.Group>
-
                         <Button variant="primary" type="submit" className="w-100">
                             Login
                         </Button>
@@ -70,4 +72,4 @@ function Login() {
     );
 };
 
-export default Login
+export default Login;

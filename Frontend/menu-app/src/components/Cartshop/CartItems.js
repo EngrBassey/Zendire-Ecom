@@ -4,6 +4,7 @@ import { ProductContext } from '../../context/Shopcontextapi';
 
 const CartItems = ({ name, price, image, sku }) => {
     const {cartItems, addItems, removeItems} = useContext(ProductContext)
+    
     return (
         <div className={classes.items}>
             <img src={image} alt={`${name}-img`} />
