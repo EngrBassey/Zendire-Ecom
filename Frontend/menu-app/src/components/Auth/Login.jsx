@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../API/api";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './Login.css';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -28,11 +30,12 @@ function Login() {
         e.preventDefault();
         const response = await loginUser(data);
         if (response.success) {
-            alert('Login success');
+            toast.success('Login success', {
+                onClose: () => navigate('/welcome') // Navigate to welcome page after toast closes
+            });
             console.log("Cookies after login:", document.cookie);
-            navigate('/welcome'); // Navigate to the welcome page
         } else {
-            alert('Login failed');
+            toast.error('Login failed');
         }
         console.log(response);
     };
@@ -68,6 +71,7 @@ function Login() {
                     </Form>
                 </Col>
             </Row>
+            <ToastContainer />
         </Container>
     );
 };

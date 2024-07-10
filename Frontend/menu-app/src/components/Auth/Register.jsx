@@ -1,19 +1,24 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../API/api";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import "bootstrap/dist/css/bootstrap.min.css";
-import './Login.css'
+import './Login.css';
 
 function Register() {
     const [data, setData] = useState({
         username: '',
         email: '',
         password: ''
-    })
+    });
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setData({
@@ -21,22 +26,26 @@ function Register() {
             [e.target.name]: e.target.value
         });
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await registerUser(data);
         if (response.success) {
-            console.log("Cookies after register:", document.cookie);
-            alert('Register success');
+            toast.success('Register success', {
+                onClose: () => navigate('/login') // Redirect to login page after toast closes
+            });
+        } else {
+            toast.error('Register failed');
         }
-        console.log(response)
-    }
+        console.log(response);
+    };
+
     return (
         <Container className="d-flex flex-column justify-content-center align-items-center vh-100">
             <Row className="w-100 d-login">
-            {/* <h2>Register</h2> */}
                 <Col xs={12} md={6} lg={4} className="mx-auto">
                     <Form onSubmit={handleSubmit} className="p-4 border rounded shadow-sm mb-5 bg-warning">
-                    <Form.Group className="mb-3" controlId="formBasicUsername">
+                        <Form.Group className="mb-3" controlId="formBasicUsername">
                             <Form.Label>Username</Form.Label>
                             <Form.Control
                                 type="text"
@@ -45,7 +54,6 @@ function Register() {
                                 value={data.username}
                                 onChange={handleChange}
                             />
-
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
@@ -56,9 +64,7 @@ function Register() {
                                 value={data.email}
                                 onChange={handleChange}
                             />
-
                         </Form.Group>
-
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control
@@ -69,15 +75,15 @@ function Register() {
                                 onChange={handleChange}
                             />
                         </Form.Group>
-
                         <Button variant="primary" type="submit" className="w-100">
                             Register
                         </Button>
                     </Form>
                 </Col>
             </Row>
+            <ToastContainer />
         </Container>
     );
 };
 
-export default Register
+export default Register;
