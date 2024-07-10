@@ -77,21 +77,18 @@
         flex-direction: column;
         width: 100%;
     }
-
     .navbarbox2 a {
         margin: 10px 0;
         font-size: 16px;
     }
-
     .iconLinks {
-        flex-direction: row;
+        flex-direction: column-reverse;
         margin-top: 10px;
+        margin-left: 0px;
     }
-
     .toggleButton {
         display: block;
     }
-
     .showMenu {
         display: flex;
     }

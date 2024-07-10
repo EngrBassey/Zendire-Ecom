@@ -5,6 +5,7 @@ import Check from '../Checkout/Check';
 import Paymentguide from '../ShopList/Paymentguide';
 import Footer from '../Footer/Footer';
 import Shopcontextapi from '../../context/Shopcontextapi';
+import { Link } from 'react-router-dom';
 
 
 function Home() {

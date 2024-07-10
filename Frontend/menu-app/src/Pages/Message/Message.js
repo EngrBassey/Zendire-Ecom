@@ -1,5 +1,5 @@
 import React from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import classes from './WelcomePage.module.css';
 import { useNavigate } from 'react-router-dom';
 

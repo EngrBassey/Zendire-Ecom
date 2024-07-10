@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Navbar from './components/Navbar/navbar';
 import Shopcontextapi from './context/Shopcontextapi';
 import Cart from './components/Cartshop/Cart';
@@ -16,6 +16,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Message from './Pages/Message/Message'
 import Update from './Pages/Product/Update';
+import ProductDescription from './Pages/ProductDescription';
 
 function App() {
   return (
@@ -38,7 +39,7 @@ function App() {
             <Route path='/pay' element={<StripePayment />} />
             <Route path='/welcome' element={<Message />} />
             <Route path='/update' element={<Update />}/>
-
+            <Route path="/product/:sku" element={<ProductDescription />} />
           </Routes>
         </Router>
         <ToastContainer />
