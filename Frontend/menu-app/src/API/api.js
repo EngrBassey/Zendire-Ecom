@@ -36,6 +36,7 @@ export const registerUser = async (userData) => {
         body: JSON.stringify(userData)
     });
     const data = await response.json();
+    console.log(data.result);
     setCookie('Z-Token', data.result.token, 24);
     localStorage.setItem('user', JSON.stringify(data.result));
     return data;
