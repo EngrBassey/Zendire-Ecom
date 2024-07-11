@@ -34,6 +34,9 @@ const Payment = (shippingDetails, cart_, amount) => {
               };
             console.log(newOrderDetails);
 
+            sessionStorage.setItem('newOrderDetails', JSON.stringify(newOrderDetails));
+            sessionStorage.setItem('paymentMethodId', paymentMethod.id);
+            console.log(sessionStorage.getItem(newOrderDetails));
             const response = await placeOrder(newOrderDetails);
             console.log(response);
             if (response.success) {

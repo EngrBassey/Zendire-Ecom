@@ -139,8 +139,8 @@ class CartController {
     let cart = await redisClient.getValue(id);
 
     if (!cart) {
-        return response.status(404).send({
-            success: false,
+        return response.status(200).send({
+            success: true,
             message: "Cart id empty",
             result: "",
           });

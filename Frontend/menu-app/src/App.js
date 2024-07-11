@@ -17,6 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Message from './Pages/Message/Message'
 import Update from './Pages/Product/Update';
 import ProductDescription from './Pages/ProductDescription';
+import Logout from './components/Auth/Logout';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path='/checkout' element={<Checkoutpage />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
+            <Route path='/logout' element={<Logout />} />
             <Route path='/order/history' element={<OrderHistory />} />
             <Route path='/checkout' />
             <Route path='/addproduct' element={<AdminRoute><Addproduct /></AdminRoute>} />

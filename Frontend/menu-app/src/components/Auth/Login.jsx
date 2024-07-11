@@ -33,7 +33,9 @@ function Login() {
             toast.success('Login success', {
                 onClose: () => navigate('/welcome') // Navigate to welcome page after toast closes
             });
-            console.log("Cookies after login:", document.cookie);
+            //console.log("Cookies after login:", document.cookie);
+
+            navigate('/welcome'); // Navigate to the welcome pag
         } else {
             toast.error('Login failed');
         }
