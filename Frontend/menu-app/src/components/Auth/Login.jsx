@@ -30,7 +30,7 @@ function Login() {
         if (response.success) {
             alert('Login success');
             console.log("Cookies after login:", document.cookie);
-            navigate('/welcome'); // Navigate to the welcome page
+            navigate('/'); // Navigate to the welcome page
         } else {
             alert('Login failed');
         }

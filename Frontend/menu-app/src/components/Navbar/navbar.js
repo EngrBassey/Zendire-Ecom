@@ -1,12 +1,27 @@
-import React, { useState } from 'react'; // Import useState
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import classes from './navbar.module.css';
 import logo from '../../assert/Zendir-logo.png';
 import { FaCartShopping } from "react-icons/fa6";
-import { FaBars, FaTimes } from "react-icons/fa"; // Import icons for toggle button
+import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State to manage mobile menu
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [username, setUsername] = useState('');
+
+    useEffect(() => {
+        const userLoggedIn = localStorage.getItem('user');
+        if (userLoggedIn) {
+            const user = JSON.parse(userLoggedIn);
+            setIsLoggedIn(true);
+            setUsername(user.username);
+            setIsAdmin(user.isAdmin);
+        } else {
+            setIsLoggedIn(false);
+        }
+    }, []);
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -32,8 +47,18 @@ const Navbar = () => {
                         <Link to="/cart">
                             <FaCartShopping />
                         </Link>
-                        <Link to='/login'>Login</Link>
-                        <Link to='/register'>Signup</Link>
+                        {isLoggedIn ? (
+                            <>
+                                <span>Hi, {username}</span>
+                                {isAdmin && <Link to='/addproduct'>Add Product</Link>}
+                                <Link to='/logout'>Logout</Link>
+                            </>
+                        ) : (
+                            <>
+                                <Link to='/login'>Login</Link>
+                                <Link to='/register'>Signup</Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

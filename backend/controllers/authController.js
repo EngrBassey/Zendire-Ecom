@@ -95,6 +95,21 @@ class AuthController {
         .send({ success: false, message: "Invalid user data", result: "" });
     }
   });
+
+  static logoutUser = asyncHandler(async (request, response) => {
+    const userId = request.user._id;
+    const user = await User.findById(userId);
+
+      user.token = null;
+      await user.save();
+
+      return response.status(200).send({
+        success: true,
+        message: "User logged out",
+      });
+
+  });
+
 }
 
 module.exports = AuthController;
